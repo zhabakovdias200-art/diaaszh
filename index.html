@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жабакова - магазин техники</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            background-image: url('https://images.unsplash.com/photo-1468436139062-f60a71c5c892?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 30px;
+            padding: 7px 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .user-actions a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .user-actions i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            padding: 10px 0;
+            overflow-x: auto;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+            display: inline-block;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+        }
+
+        .product-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Product Detail */
+        .product-detail {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .detail-title {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .detail-content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .detail-image {
+            flex: 1;
+            max-width: 400px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .detail-image img {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+        }
+
+        .detail-info {
+            flex: 2;
+        }
+
+        .detail-price {
+            font-size: 28px;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .detail-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .detail-specs {
+            margin-bottom: 25px;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid #eee;
+        }
+
+        .specs-table td {
+            padding: 10px 5px;
+        }
+
+        .specs-table td:first-child {
+            font-weight: 600;
+            color: #2c3e50;
+            width: 40%;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+            display: inline-block;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b6b;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #3e546e;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .detail-content {
+                flex-direction: column;
+            }
+            
+            .detail-image {
+                max-width: 100%;
+            }
+            
+            nav ul {
+                gap: 10px;
+            }
+            
+            nav ul li a {
+                padding: 5px 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Жабакова
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск товаров...">
+                    <button><i class="fas fa-search"></i> Найти</button>
+                </div>
+                <div class="user-actions">
+                    <a href="profile.html"><i class="fas fa-user"></i> Профиль</a>
+
+                    <a href="#"><i class="fas fa-heart"></i> Избранное</a>
+                    <a href="#"><i class="fas fa-shopping-bag"></i> Мои покупки</a>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Главная</a></li>
+                    <li><a href="#">Смартфоны</a></li>
+                    <li><a href="#">Ноутбуки</a></li>
+                    <li><a href="#">Телевизоры</a></li>
+                    <li><a href="#">Аудиотехника</a></li>
+                    <li><a href="#">Фототехника</a></li>
+                    <li><a href="#">Бытовая техника</a></li>
+                    <li><a href="#">Аксессуары</a></li>
+                    <li><a href="#">Скидки</a></li>
+                    <li><a href="#">Новинки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <h2 class="section-title">Каталог товаров</h2>
+        
+        <div class="products-grid" id="productsGrid">
+            <!-- Products will be generated by JavaScript -->
+        </div>
+        
+        <div class="product-detail" id="productDetail">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detailTitle">Название товара</h2>
+                <button class="btn btn-secondary" onclick="closeDetail()">
+                    <i class="fas fa-arrow-left"></i> Назад к каталогу
+                </button>
+            </div>
+            <div class="detail-content">
+                <div class="detail-image">
+                    <img id="detailImage" src="" alt="Product">
+                </div>
+                <div class="detail-info">
+                    <div class="detail-price" id="detailPrice">0 ₸</div>
+                    <p class="detail-description" id="detailDescription">
+                        Описание товара будет здесь...
+                    </p>
+                    <div class="detail-specs">
+                        <h3>Характеристики</h3>
+                        <table class="specs-table" id="specsTable">
+                            <!-- Specifications will be added by JavaScript -->
+                        </table>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-shopping-cart"></i> Добавить в корзину
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-heart"></i> В избранное
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О магазине</h3>
+                    <p>Жабакова - лучший выбор техники по выгодным ценам. Мы работаем для вас с 2023 года.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Категории</h3>
+                    <ul>
+                        <li><a href="#">Смартфоны</a></li>
+                        <li><a href="#">Ноутбуки</a></li>
+                        <li><a href="#">Телевизоры</a></li>
+                        <li><a href="#">Аудиотехника</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Возврат</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +7 (777) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@jabakova.kz</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Алматы, ул. Техническая, 42</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Жабакова - интернет-магазин техники. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Смартфон Samsung Galaxy S23",
+                price: 399990,
+                image: "https://images.samsung.com/is/image/samsung/p6pim/ru/2302/gallery/ru-galaxy-s23-s918-sm-s918bzgcskz-534864917?$650_519_PNG$",
+                description: "Флагманский смартфон с лучшей камерой на рынке и мощным процессором.",
+                specs: {
+                    "Экран": "6.1 дюйм, Dynamic AMOLED 2X",
+                    "Процессор": "Snapdragon 8 Gen 2",
+                    "Память": "8 ГБ ОЗУ / 256 ГБ ПЗУ",
+                    "Камера": "50 МП + 12 МП + 10 МП",
+                    "Батарея": "3900 мАч",
+                    "ОС": "Android 13"
+                }
+            },
+            {
+                id: 2,
+                name: "Ноутбук Apple MacBook Pro 16",
+                price: 899990,
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp16-spacegray-select-202301?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1671304673223",
+                description: "Мощный ноутбук для профессиональной работы и творчества.",
+                specs: {
+                    "Экран": "16.2 дюйма, Liquid Retina XDR",
+                    "Процессор": "Apple M2 Pro",
+                    "Память": "16 ГБ ОЗУ / 1 ТБ ПЗУ",
+                    "Графика": "19-ядерный GPU",
+                    "Батарея": "до 22 часов работы",
+                    "ОС": "macOS Ventura"
+                }
+            },
+            {
+                id: 3,
+                name: "Телевизор LG OLED C2",
+                price: 549990,
+                image: "https://www.lg.com/ru/images/televisions/md07531216/gallery/OLED55C2RLA_D_01_v1.jpg",
+                description: "OLED телевизор с идеальным черным цветом и превосходной цветопередачей.",
+                specs: {
+                    "Диагональ": "55 дюймов",
+                    "Разрешение": "4K UHD (3840x2160)",
+                    "Технология": "OLED",
+                    "HDR": "Dolby Vision, HDR10, HLG",
+                    "Smart TV": "webOS 22",
+                    "Игровые функции": "NVIDIA G-SYNC, AMD FreeSync"
+                }
+            },
+            {
+                id: 4,
+                name: "Наушники Sony WH-1000XM5",
+                price: 149990,
+                image: "https://www.sony.ru/image/9e6c9696b3b1e6d291d8d266dc6b338c?fmt=pjpeg&wid=165&bgcolor=FFFFFF&bgc=FFFFFF",
+                description: "Беспроводные наушники с шумоподавлением и премиальным звуком.",
+                specs: {
+                    "Тип": "Накладные беспроводные",
+                    "Шумоподавление": "Активное",
+                    "Аккумулятор": "до 30 часов работы",
+                    "Bluetooth": "5.2",
+                    "Вес": "250 г",
+                    "Микрофон": "Встроенный, для разговоров"
+                }
+            },
+            {
+                id: 5,
+                name: "Фотоаппарат Canon EOS R6",
+                price: 799990,
+                image: "https://cdn.canon.ru/img/r6-m2-front/product/r6-front.png",
+                description: "Беззеркальная камера для профессиональной фото и видеосъемки.",
+                specs: {
+                    "Матрица": "20.1 МП, Full-Frame CMOS",
+                    "Стабилизация": "5-осевая, до 8 ступеней",
+                    "Серийная съемка": "до 20 кадров/сек",
+                    "Видео": "4K 60p, Full HD 120p",
+                    "Автофокус": "1053 точки",
+                    "Экран": "3.0-дюймовый поворотный сенсорный"
+                }
+            },
+            {
+                id: 6,
+                name: "Игровая консоль PlayStation 5",
+                price: 299990,
+                image: "https://gmedia.playstation.com/is/image/SIEPDC/ps5-product-thumbnail-01-en-14sep21?$1600px--t$",
+                description: "Новейшая игровая консоль от Sony с поддержкой 4K и 120 FPS.",
+                specs: {
+                    "Процессор": "8-ядерный AMD Zen 2, 3.5 ГГц",
+                    "Графика": "AMD Radeon RDNA 2, 10.28 TFLOPs",
+                    "Память": "16 ГБ GDDR6",
+                    "Хранилище": "825 ГБ SSD",
+                    "Привод": "4K UHD Blu-ray",
+                    "Поддержка": "4K 120Hz, 8K, Ray Tracing"
+                }
+            },
+            {
+                id: 7,
+                name: "Умные часы Apple Watch Series 8",
+                price: 199990,
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MNPX3_VW_34FR+watch-45-alum-midnight-nc-8s_VW_34FR_WF_CO?wid=700&hei=700&trim=1,0&fmt=p-jpg&qlt=95&.v=1683224241054",
+                description: "Умные часы с расширенными функциями для здоровья и fitness.",
+                specs: {
+                    "Экран": "1.9 дюйма, Always-On Retina",
+                    "Корпус": "Алюминий 45 мм",
+                    "Датчики": "ЭКГ, пульсоксиметр, температура тела",
+                    "Защита": "Водонепроницаемость 50м",
+                    "Батарея": "до 18 часов работы",
+                    "Совместимость": "iPhone с iOS 16+"
+                }
+            },
+            {
+                id: 8,
+                name: "Планшет iPad Pro 12.9",
+                price: 599990,
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-finish-select-202212-11inch-spacegray-wifi_FMT_WHH?wid=1000&hei=1000&fmt=webp&qlt=90&.v=1671143321219",
+                description: "Мощный планшет для творчества и работы с дисплеем Liquid Retina XDR.",
+                specs: {
+                    "Экран": "12.9 дюйма, Liquid Retina XDR",
+                    "Процессор": "Apple M2",
+                    "Память": "8 ГБ ОЗУ / 256 ГБ ПЗУ",
+                    "Камеры": "12 МП широкоугольная + 10 МП ultra wide",
+                    "Поддержка": "Apple Pencil 2, Magic Keyboard",
+                    "ОС": "iPadOS 16"
+                }
+            },
+            {
+                id: 9,
+                name: "Кофемашина DeLonghi Magnifica Evo",
+                price: 249990,
+                image: "https://www.delonghi.com/medias/ECAM290-81-GB-Magnifica-Evo-Front-1-1200Wx1200H?context=bWFzdGVyfHJvb3R8MTIwMDAwfGltYWdlL2pwZWd8aGM0L2g0OS8xMDA2Njc0MTA0Njc1MC9FQ0FNMjkwLjgxX0dCX01hZ25pZmljYV9Fdm9fRnJvbnRfMV8xMjAwV3gxMjAwSC5qcGd8YzY3ZTIxZGE3YzA2NDYxNDI4YzU0MTYxYzQ2YzIwZDM3YjYwY2Q0YzQ3YjU3MTU0YzUzYmQ0ZjY1Y2U0Y2JkYw",
+                description: "Автоматическая кофемашина для приготовления эспрессо, капучино и латте.",
+                specs: {
+                    "Тип": "Автоматическая",
+                    "Загрузка": "Зерновой кофе/молотый",
+                    "Помпа": "15 бар",
+                    "Резервуар для воды": "1.8 л",
+                    "Резервуар для зерен": "300 г",
+                    "Функции": "Автокапучинатор, 13 настроек помола"
+                }
+            },
+            {
+                id: 10,
+                name: "Игровая мышь Razer DeathAdder V3",
+                price: 49990,
+                image: "https://assets2.razerzone.com/images/pnx.assets/7c0b4ffc4427dec6ee9c8da033c85d0e/razer-deathadder-v3-pro-500x500.png",
+                description: "Легкая беспроводная игровая мышь с оптическим сенсором Focus Pro 30K.",
+                specs: {
+                    "Сенсор": "Focus Pro 30K Optical",
+                    "Кнопки": "5 программируемых",
+                    "Вес": "63 г",
+                    "Подключение": "Wireless + Bluetooth",
+                    "Батарея": "до 90 часов работы",
+                    "Особенности": "Оptical Mouse Switches Gen-3"
+                }
+            },
+            {
+                id: 11,
+                name: "Монитор Dell UltraSharp U2720Q",
+                price: 249990,
+                image: "https://i.dell.com/is/image/DellContent/content/dam/ss2/products/electronics-and-accessories/dell/monitors/u2720q/images/monitor-u2720q-campaign-hero-504x350-ng.psd?fmt=png-alpha&wid=1000&hei=1000",
+                description: "27-дюймовый 4K монитор с точной цветопередачей для профессионалов.",
+                specs: {
+                    "Диагональ": "27 дюймов",
+                    "Разрешение": "4K UHD (3840x2160)",
+                    "Матрица": "IPS",
+                    "Цветовой охват": "99% sRGB, 95% DCI-P3",
+                    "Порты": "USB-C, HDMI, DisplayPort",
+                    "Регулировка": "Высота, наклон, поворот"
+                }
+            },
+            {
+                id: 12,
+                name: "Робот-пылесос iRobot Roomba i7+",
+                price: 199990,
+                image: "https://www.irobot.com/on/demandware.static/-/Sites-irobot-master-catalog/default/dw6b5579e6/images/roomba/roomba-i7-plus/roomba-i7-plus-black-01.png",
+                description: "Робот-пылесос с автоматической очисткой контейнера и навигацией по карте.",
+                specs: {
+                    "Тип уборки": "Сухая",
+                    "Навигация": "iAdapt 3.0 с vSLAM",
+                    "Пылесборник": "Автоопорожнение (до 60 дней)",
+                    "Управление": "Приложение, голосовые помощники",
+                    "Батарея": "до 75 минут работы",
+                    "Особенности": "Картография всего дома, зоны уборки"
+                }
+            },
+            {
+                id: 13,
+                name: "Мини-ПК Intel NUC 13",
+                price: 199990,
+                image: "https://www.intel.com/content/dam/www/central-libraries/us/en/images/2022-12/nuc-13-pro-kit-vpro-1.png.rendition.intel.web.480.270.png",
+                description: "Компактный мощный ПК для работы и развлечений с процессором Intel Core i7.",
+                specs: {
+                    "Процессор": "Intel Core i7-1360P",
+                    "Память": "16 ГБ DDR4",
+                    "Хранилище": "512 ГБ SSD NVMe",
+                    "Графика": "Intel Iris Xe",
+                    "Порты": "Thunderbolt 4, HDMI 2.1, USB 3.2",
+                    "ОС": "Windows 11 Pro"
+                }
+            },
+            {
+                id: 14,
+                name: "Электронная книга PocketBook 740",
+                price: 69990,
+                image: "https://pocketbook.ru/upload/resize_cache/iblock/0a8/520_700_1/0a8b447dc9d8b5d8a3d6d9b5d8a3d6d9.png",
+                description: "7-дюймовая электронная книга с сенсорным экраном E Ink Carta 1200.",
+                specs: {
+                    "Экран": "7 дюймов, E Ink Carta 1200",
+                    "Разрешение": "1264 x 1680",
+                    "Подсветка": "SmartLight с регулировкой цветовой температуры",
+                    "Память": "32 ГБ",
+                    "Форматы": "FB2, EPUB, PDF, MOBI, DJVU и др.",
+                    "Батарея": "до 1 месяца работы"
+                }
+            },
+            {
+                id: 15,
+                name: "Дрон DJI Mini 3 Pro",
+                price: 299990,
+                image: "https://www.dji.com/europe/dji-mini-3-pro/images/dji-mini-3-pro-drone-1.png",
+                description: "Компактный дрон с камерой 4K/60fps и тройным препятствий.",
+                specs: {
+                    "Вес": "249 г",
+                    "Камера": "1/1.3-дюймовый сенсор, 48 МП",
+                    "Видео": "4K/60fps, HDR",
+                    "Стабилизация": "3-осевая",
+                    "Время полета": "до 34 минут",
+                    "Дальность": "до 12 км (с усилителем сигнала)"
+                }
+            },
+            {
+                id: 16,
+                name: "Умная колонка Яндекс Станция Макс",
+                price: 39990,
+                image: "https://avatars.mds.yandex.net/get-marketpic/6272717/market_Zn4h7pQ9hQ3lVr9UQ3_2hA/800x800",
+                description: "Умная колонка с Алисой, качественным звуком и экраном.",
+                specs: {
+                    "Акустика": "2 НЧ-динамика, 2 ВЧ-динамика",
+                    "Мощность": "50 Вт",
+                    "Экран": "10.1 дюйма",
+                    "Управление": "Голосовое, сенсорное",
+                    "Поддержка": "YouTube, Кинопоиск, Wink и др.",
+                    "Интерфейсы": "Bluetooth, Wi-Fi, HDMI"
+                }
+            },
+            {
+                id: 17,
+                name: "Микрофон Blue Yeti X",
+                price: 49990,
+                image: "https://cdn.shopify.com/s/files/1/0353/6359/5166/products/blue-yeti-x-usb-microphone-for-recording-and-streaming-blackout-288334.png?v=1634667778",
+                description: "USB-микрофон профессионального качества для стриминга и записи.",
+                specs: {
+                    "Тип": "Конденсаторный USB",
+                    "Капсюли": "4 капсюля с массивами",
+                    "Частотный диапазон": "20Hz-20kHz",
+                    "Кнопки": "Регулировка增益, мгновенное отключение звука",
+                    "Подсветка": "RGB с регулировкой",
+                    "Совместимость": "PC, Mac, PlayStation, Xbox"
+                }
+            },
+            {
+                id: 18,
+                name: "Принтер HP LaserJet Pro MFP",
+                price: 89990,
+                image: "https://www8.hp.com/us/en/images/content/products/laserjet-pro-mfp-m428-m431/printer_1873127.png",
+                description: "Лазерный МФУ для офиса с быстрой печатью и экономичными картриджами.",
+                specs: {
+                    "Функции": "Печать, копирование, сканирование, факс",
+                    "Скорость печати": "до 28 стр/мин",
+                    "Разрешение": "до 600 x 600 dpi",
+                    "Лоток": "250 листов",
+                    "Подключение": "USB, Ethernet, Wi-Fi",
+                    "Картридж": "HP 128A (до 2300 страниц)"
+                }
+            },
+            {
+                id: 19,
+                name: "Игровое кресло DXRacer Formula",
+                price: 59990,
+                image: "https://dxracer.ru/upload/iblock/6d4/6d4d6d6d6d6d6d6d6d6d6d6d6d6d6d6d.png",
+                description: "Эргономичное игровое кресло с поддержкой поясницы и регулировками.",
+                specs: {
+                    "Каркас": "Стальной",
+                    "Обивка": "Экокожа и ткань",
+                    "Регулировки": "Высота, наклон 135°, подлокотники",
+                    "Поддержка": "Поясничная и шейная подушки",
+                    "Максимальная нагрузка": "120 кг",
+                    "Гарантия": "2 года"
+                }
+            },
+            {
+                id: 20,
+                name: "Внешний аккумулятор Xiaomi 20000 mAh",
+                price: 9990,
+                image: "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1654087.png",
+                description: "Мощный power bank с быстрой зарядкой и двумя портами USB.",
+                specs: {
+                    "Емкость": "20000 мАч",
+                    "Вход": "Micro-USB, USB-C",
+                    "Выход": "2 x USB-A, 1 x USB-C",
+                    "Быстрая зарядка": "18W",
+                    "Индикация": "4 светодиода",
+                    "Вес": "350 г"
+                }
+            }
+        ];
+            
+        // Generate product cards
+        const productsGrid = document.getElementById('productsGrid');
+        
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="product-image">
+                    <img src="${product.image}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">${formatPrice(product.price)} ₸</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="showDetail(${product.id})">
+                            <i class="fas fa-info-circle"></i> Подробнее
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-shopping-cart"></i> Купить
+                        </button>
+                    </div>
+                </div>
+            `;
+            productsGrid.appendChild(card);
+        });
+
+        // Format price with thousands separators
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        }
+
+        // Show product detail
+        function showDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            document.getElementById('detailTitle').textContent = product.name;
+            document.getElementById('detailImage').src = product.image;
+            document.getElementById('detailPrice').textContent = `${formatPrice(product.price)} ₸`;
+            document.getElementById('detailDescription').textContent = product.description;
+            
+            // Fill specifications table
+            const specsTable = document.getElementById('specsTable');
+            specsTable.innerHTML = '';
+            
+            for (const [key, value] of Object.entries(product.specs)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${key}</td>
+                    <td>${value}</td>
+                `;
+                specsTable.appendChild(row);
+            }
+            
+            // Show detail, hide grid
+            document.getElementById('productsGrid').style.display = 'none';
+            document.getElementById('productDetail').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Close product detail
+        function closeDetail() {
+            document.getElementById('productsGrid').style.display = 'grid';
+            document.getElementById('productDetail').style.display = 'none';
+        }
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-bar input');
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        document.querySelector('.search-bar button').addEventListener('click', performSearch);
+
+        function performSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            if (!searchTerm) return;
+            
+            const foundProduct = products.find(product => 
+                product.name.toLowerCase().includes(searchTerm)
+            );
+            
+            if (foundProduct) {
+                showDetail(foundProduct.id);
+            } else {
+                alert('Товар не найден. Попробуйте другой запрос.');
+            }
+        }
+    </script>
+</body>
+</html>

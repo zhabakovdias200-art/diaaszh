@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - Жабакова</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: #ff6b6b;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #ff6b6b;
+            border: none;
+            border-radius: 30px;
+            padding: 7px 15px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .user-actions a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .user-actions i {
+            margin-right: 5px;
+            font-size: 18px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            padding: 10px 0;
+            overflow-x: auto;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
+        }
+
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            padding: 15px 0;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+
+        .breadcrumbs a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .breadcrumbs span {
+            color: #7f8c8d;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 20px 0 40px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Profile Layout */
+        .profile-layout {
+            display: flex;
+            gap: 30px;
+        }
+
+        .profile-sidebar {
+            flex: 0 0 270px;
+        }
+
+        .profile-content {
+            flex: 1;
+        }
+
+        /* Profile Menu */
+        .profile-menu {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .profile-menu-header {
+            background: #4a6491;
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .profile-menu-list {
+            list-style: none;
+        }
+
+        .profile-menu-list li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .profile-menu-list li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-menu-list a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .profile-menu-list a:hover {
+            background: #f9f9f9;
+        }
+
+        .profile-menu-list a.active {
+            background: #f0f7ff;
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .profile-menu-list i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* Profile Info Block */
+        .profile-info-block {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .profile-info-block.hidden {
+            display: none;
+        }
+
+        .profile-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-info-title {
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .profile-info-edit {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .profile-info-edit i {
+            margin-right: 5px;
+        }
+
+        /* Form Styles */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px 15px;
+        }
+
+        .form-group {
+            flex: 1 0 calc(50% - 20px);
+            margin: 0 10px 15px;
+            min-width: 250px;
+        }
+
+        .form-group-full {
+            flex: 1 0 calc(100% - 20px);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+            background: #fafafa;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+            background: white;
+        }
+
+        .form-control:disabled {
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #3498db;
+            color: #3498db;
+        }
+
+        .btn-outline:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        /* Bonus Card */
+        .bonus-card {
+            background: linear-gradient(to right, #4a6491, #2c3e50);
+            color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .bonus-card-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .bonus-card-amount {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .bonus-card-progress {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .bonus-card-progress-bar {
+            height: 100%;
+            background: #ff6b6b;
+            border-radius: 4px;
+            width: 65%;
+        }
+
+        .bonus-card-text {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        /* Orders Table */
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .orders-table th {
+            background: #f8f9fa;
+            text-align: left;
+            padding: 12px 15px;
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+        }
+
+        .orders-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .orders-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-delivered {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-processing {
+            background: #fff8e1;
+            color: #f57c00;
+        }
+
+        .status-cancelled {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        /* Address & Payment Cards */
+        .address-card, .payment-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .address-card h3, .payment-card h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .address-card p, .payment-card p {
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .default-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* Favorite Items */
+        .favorite-item {
+            display: flex;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        .favorite-image {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .favorite-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .favorite-info {
+            flex: 1;
+        }
+
+        .favorite-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .favorite-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .favorite-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+            display: inline-block;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b6b;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #3e546e;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .profile-layout {
+                flex-direction: column;
+            }
+            
+            .profile-sidebar {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .form-group {
+                flex: 1 0 calc(100% - 20px);
+            }
+            
+            nav ul {
+                gap: 10px;
+            }
+            
+            nav ul li a {
+                padding: 5px 10px;
+                font-size: 14px;
+            }
+            
+            .favorite-item {
+                flex-direction: column;
+            }
+            
+            .favorite-image {
+                width: 100%;
+                height: 150px;
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-laptop-code"></i>
+                    Жабакова
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Поиск товаров...">
+                    <button><i class="fas fa-search"></i> Найти</button>
+                </div>
+                <div class="user-actions">
+                    <a href="#" onclick="showProfile()"><i class="fas fa-user"></i> Профиль</a>
+                    <a href="#"><i class="fas fa-heart"></i> Избранное</a>
+                    <a href="#"><i class="fas fa-shopping-bag"></i> Мои покупки</a>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="#">Смартфоны</a></li>
+                    <li><a href="#">Ноутбуки</a></li>
+                    <li><a href="#">Телевизоры</a></li>
+                    <li><a href="#">Аудиотехника</a></li>
+                    <li><a href="#">Фототехника</a></li>
+                    <li><a href="#">Бытовая техника</a></li>
+                    <li><a href="#">Аксессуары</a></li>
+                    <li><a href="#">Скидки</a></li>
+                    <li><a href="#">Новинки</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumbs">
+            <a href="index.html">Главная</a> > <span>Личный кабинет</span>
+        </div>
+    </div>
+
+    <div class="container main-content">
+        <h1 class="page-title">Личный кабинет</h1>
+        
+        <div class="profile-layout">
+            <div class="profile-sidebar">
+                <div class="profile-menu">
+                    <div class="profile-menu-header">
+                        <i class="fas fa-user-circle"></i> Александр Ж.
+                    </div>
+                    <ul class="profile-menu-list">
+                        <li><a href="#" class="active" onclick="showSection('personal')"><i class="fas fa-user"></i> Личные данные</a></li>
+                        <li><a href="#" onclick="showSection('orders')"><i class="fas fa-shopping-bag"></i> Мои заказы</a></li>
+                        <li><a href="#" onclick="showSection('favorites')"><i class="fas fa-heart"></i> Избранное</a></li>
+                        <li><a href="#" onclick="showSection('addresses')"><i class="fas fa-map-marker-alt"></i> Адреса доставки</a></li>
+                        <li><a href="#" onclick="showSection('payments')"><i class="fas fa-credit-card"></i> Способы оплаты</a></li>
+                        <li><a href="#" onclick="showSection('bonus')"><i class="fas fa-percent"></i> Бонусный счет</a></li>
+                        <li><a href="#" onclick="showSection('password')"><i class="fas fa-lock"></i> Смена пароля</a></li>
+                        <li><a href="#" onclick="showSection('subscriptions')"><i class="fas fa-bell"></i> Рассылки</a></li>
+                        <li><a href="#"><i class="fas fa-sign-out-alt"></i> Выход</a></li>
+                    </ul>
+                </div>
+                
+                <div class="bonus-card">
+                    <div class="bonus-card-title">Бонусный счет</div>
+                    <div class="bonus-card-amount">3 450 ₸</div>
+                    <div class="bonus-card-progress">
+                        <div class="bonus-card-progress-bar"></div>
+                    </div>
+                    <div class="bonus-card-text">До следующего уровня: 1 550 ₸</div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <!-- Личные данные -->
+                <div id="personal-section" class="profile-info-block">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Личные данные</h2>
+                        <a class="profile-info-edit" onclick="enableEditing()"><i class="fas fa-pencil-alt"></i> Редактировать</a>
+                    </div>
+                    
+                    <form id="personal-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Фамилия</label>
+                                <input type="text" class="form-control" value="Жабакова" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Имя</label>
+                                <input type="text" class="form-control" value="Александр" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" value="alexander@example.com" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Телефон</label>
+                                <input type="tel" class="form-control" value="+7 (777) 123-45-67" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Дата рождения</label>
+                                <input type="date" class="form-control" value="1990-05-15" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Пол</label>
+                                <select class="form-control" disabled>
+                                    <option selected>Мужской</option>
+                                    <option>Женский</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-outline" onclick="enableEditing()">
+                            <i class="fas fa-edit"></i> Редактировать данные
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="savePersonalData()" style="display: none;">
+                            <i class="fas fa-save"></i> Сохранить изменения
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Мои заказы -->
+                <div id="orders-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">История заказов</h2>
+                    </div>
+                    
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Номер заказа</th>
+                                <th>Дата</th>
+                                <th>Сумма</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">№123456</a></td>
+                                <td>12.08.2023</td>
+                                <td>125 000 ₸</td>
+                                <td><span class="order-status status-delivered">Доставлен</span></td>
+                                <td><button class="btn btn-outline">Повторить</button></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">№123455</a></td>
+                                <td>05.08.2023</td>
+                                <td>89 990 ₸</td>
+                                <td><span class="order-status status-delivered">Доставлен</span></td>
+                                <td><button class="btn btn-outline">Повторить</button></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">№123454</a></td>
+                                <td>28.07.2023</td>
+                                <td>349 990 ₸</td>
+                                <td><span class="order-status status-processing">В обработке</span></td>
+                                <td><button class="btn btn-outline">Отследить</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Избранное -->
+                <div id="favorites-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Избранные товары</h2>
+                    </div>
+                    
+                    <div class="favorite-item">
+                        <div class="favorite-image">
+                            <img src="https://images.samsung.com/is/image/samsung/p6pim/ru/2302/gallery/ru-galaxy-s23-s918-sm-s918bzgcskz-534864917?$650_519_PNG$" alt="Samsung Galaxy S23">
+                        </div>
+                        <div class="favorite-info">
+                            <div class="favorite-name">Смартфон Samsung Galaxy S23</div>
+                            <div class="favorite-price">399 990 ₸</div>
+                            <div class="favorite-actions">
+                                <button class="btn btn-primary">В корзину</button>
+                                <button class="btn btn-danger">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="favorite-item">
+                        <div class="favorite-image">
+                            <img src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp16-spacegray-select-202301?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1671304673223" alt="MacBook Pro">
+                        </div>
+                        <div class="favorite-info">
+                            <div class="favorite-name">Ноутбук Apple MacBook Pro 16</div>
+                            <div class="favorite-price">899 990 ₸</div>
+                            <div class="favorite-actions">
+                                <button class="btn btn-primary">В корзину</button>
+                                <button class="btn btn-danger">Удалить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Адреса доставки -->
+                <div id="addresses-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Мои адреса доставки</h2>
+                        <a class="profile-info-edit" onclick="showAddAddressForm()"><i class="fas fa-plus"></i> Добавить адрес</a>
+                    </div>
+                    
+                    <div class="address-card">
+                        <span class="default-badge">Основной</span>
+                        <h3>Домашний адрес</h3>
+                        <p>г. Алматы, пр. Абая, 123, кв. 45<br>+7 (777) 123-45-67</p>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Редактировать</button>
+                            <button class="btn btn-danger">Удалить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="address-card">
+                        <h3>Рабочий адрес</h3>
+                        <p>г. Алматы, ул. Толе би, 67, офис 304<br>+7 (777) 765-43-21</p>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Редактировать</button>
+                            <button class="btn btn-outline">Сделать основным</button>
+                            <button class="btn btn-danger">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Способы оплаты -->
+                <div id="payments-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Способы оплаты</h2>
+                        <a class="profile-info-edit" onclick="showAddCardForm()"><i class="fas fa-plus"></i> Добавить карту</a>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <span class="default-badge">Основная</span>
+                        <h3>Visa •••• 1234</h3>
+                        <p>Срок действия: 12/25</p>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Редактировать</button>
+                            <button class="btn btn-danger">Удалить</button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-card">
+                        <h3>Mastercard •••• 5678</h3>
+                        <p>Срок действия: 09/24</p>
+                        <div class="card-actions">
+                            <button class="btn btn-outline">Редактировать</button>
+                            <button class="btn btn-outline">Сделать основной</button>
+                            <button class="btn btn-danger">Удалить</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Бонусный счет -->
+                <div id="bonus-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Бонусный счет</h2>
+                    </div>
+                    
+                    <div class="bonus-card">
+                        <div class="bonus-card-title">Доступно бонусов</div>
+                        <div class="bonus-card-amount">3 450 ₸</div>
+                        <div class="bonus-card-progress">
+                            <div class="bonus-card-progress-bar"></div>
+                        </div>
+                        <div class="bonus-card-text">До следующего уровня: 1 550 ₸</div>
+                    </div>
+                    
+                    <h3 style="margin: 20px 0 15px;">История начислений</h3>
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Операция</th>
+                                <th>Сумма</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10.08.2023</td>
+                                <td>Начисление за покупку №123456</td>
+                                <td>+1 250 ₸</td>
+                            </tr>
+                            <tr>
+                                <td>03.08.2023</td>
+                                <td>Начисление за покупку №123455</td>
+                                <td>+900 ₸</td>
+                            </tr>
+                            <tr>
+                                <td>25.07.2023</td>
+                                <td>Начисление за отзыв</td>
+                                <td>+300 ₸</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Смена пароля -->
+                <div id="password-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Смена пароля</h2>
+                    </div>
+                    
+                    <form id="password-form">
+                        <div class="form-row">
+                            <div class="form-group form-group-full">
+                                <label class="form-label">Текущий пароль</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Новый пароль</label>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Подтверждение пароля</label>
+                                <input type="password" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary" onclick="changePassword()">
+                            <i class="fas fa-lock"></i> Сменить пароль
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Рассылки -->
+                <div id="subscriptions-section" class="profile-info-block hidden">
+                    <div class="profile-info-header">
+                        <h2 class="profile-info-title">Управление подписками</h2>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="subscribe" checked style="margin-right: 10px;">
+                                <label for="subscribe" class="form-label" style="margin-bottom: 0;">Подписаться на рассылку</label>
+                            </div>
+                            <div style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">
+                                Получать уведомления о новых товарах, акциях и специальных предложениях
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" id="sms-notifications" checked style="margin-right: 10px;">
+                                <label for="sms-notifications" class="form-label" style="margin-bottom: 0;">SMS-уведомления</label>
+                            </div>
+                            <div style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">
+                                Получать уведомления о статусе заказа по SMS
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="saveSubscriptions()">
+                        <i class="fas fa-save"></i> Сохранить настройки
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О магазине</h3>
+                    <p>Жабакова - лучший выбор техники по выгодным ценам. Мы работаем для вас с 2023 года.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Категории</h3>
+                    <ul>
+                        <li><a href="#">Смартфоны</a></li>
+                        <li><a href="#">Ноутбуки</a></li>
+                        <li><a href="#">Телевизоры</a></li>
+                        <li><a href="#">Аудиотехника</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Помощь</h3>
+                    <ul>
+                        <li><a href="#">Доставка</a></li>
+                        <li><a href="#">Оплата</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Возврат</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +7 (777) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> info@jabakova.kz</li>
+                        <li><i class="fas fa-map-marker-alt"></i> г. Алматы, ул. Техническая, 42</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Жабакова - интернет-магазин техники. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Функция для переключения между разделами
+        function showSection(sectionId) {
+            // Скрыть все разделы
+            const sections = document.querySelectorAll('.profile-info-block');
+            sections.forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Показать выбранный раздел
+            document.getElementById(sectionId + '-section').classList.remove('hidden');
+            
+            // Обновить активный пункт меню
+            const menuItems = document.querySelectorAll('.profile-menu-list a');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Найти и активировать соответствующий пункт меню
+            event.target.classList.add('active');
+            
+            // Предотвратить переход по ссылке
+            event.preventDefault();
+        }
+        
+        // Включение редактирования личных данных
+        function enableEditing() {
+            const inputs = document.querySelectorAll('#personal-form .form-control, #personal-form select');
+            inputs.forEach(input => {
+                input.disabled = false;
+            });
+            
+            document.querySelector('#personal-form .btn-outline').style.display = 'none';
+            document.querySelector('#personal-form .btn-primary').style.display = 'inline-flex';
+        }
+        
+        // Сохранение личных данных
+        function savePersonalData() {
+            const inputs = document.querySelectorAll('#personal-form .form-control, #personal-form select');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            
+            document.querySelector('#personal-form .btn-outline').style.display = 'inline-flex';
+            document.querySelector('#personal-form .btn-primary').style.display = 'none';
+            
+            alert('Данные успешно сохранены!');
+        }
+        
+        // Смена пароля
+        function changePassword() {
+            alert('Пароль успешно изменен!');
+            document.getElementById('password-form').reset();
+        }
+        
+        // Сохранение настроек подписки
+        function saveSubscriptions() {
+            alert('Настройки подписки сохранены!');
+        }
+        
+        // Показать форму добавления адреса
+        function showAddAddressForm() {
+            alert('Открывается форма добавления нового адреса');
+        }
+        
+        // Показать форму добавления карты
+        function showAddCardForm() {
+            alert('Открывается форма добавления новой карты');
+        }
+        
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Показываем раздел "Личные данные" по умолчанию
+            document.getElementById('personal-section').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
